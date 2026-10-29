@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>But... I Love You ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffc1d6, #ffe4ed, #ff9fbd);
+    color: #a61e52;
+}
+
+.card {
+    width: 90%;
+    max-width: 480px;
+    padding: 35px 25px;
+    text-align: center;
+    background: rgba(255,255,255,0.88);
+    border-radius: 28px;
+    box-shadow: 0 15px 45px #c7356840;
+    z-index: 2;
+    animation: appear 1s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.emoji {
+    font-size: 75px;
+    animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+h1 {
+    color: #e52d70;
+    font-size: 32px;
+}
+
+p {
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+button {
+    padding: 13px 24px;
+    margin: 7px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+.yes {
+    background: #f23878;
+    color: white;
+}
+
+.no {
+    background: #ffe0eb;
+    color: #c42661;
+}
+
+.hidden {
+    display: none;
+}
+
+#message {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #e52d70;
+    font-size: 18px;
+}
+
+.heart {
+    position: fixed;
+    bottom: -50px;
+    font-size: 25px;
+    animation: floatUp 7s linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.footer {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #bd6387;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <!-- PAGE 1 -->
+    <section id="page1">
+        <div class="emoji">🥺</div>
+        <h1>Hiii, you! 💗</h1>
+        <p>
+            I made something special for you...
+            Will you say hello?
+        </p>
+        <button class="yes" onclick="nextPage(2)">
+            Hello 💌
+        </button>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section id="page2" class="hidden">
+        <div class="emoji">🌷</div>
+        <h1>Can I tell you something?</h1>
+        <p>
+            Every time we talk, you make my day
+            a little brighter. Your smile makes
+            ordinary moments feel special. 💕
+        </p>
+        <button class="yes" onclick="nextPage(3)">
+            Tell me more 💖
+        </button>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section id="page3" class="hidden">
+        <div class="emoji">🌸</div>
+        <h1>So... I like you! ❤️</h1>
+        <p>
+            I may not always know the perfect words,
+            but I want you to know that you are
+            someone special to me.
+        </p>
+        <p><strong>Would you like to be my kaduo forever?</strong></p>
+
+        <button class="yes" onclick="sayYes()">
+            Yes! 💞
+        </button>
+
+        <button class="no" onclick="sayNo()">
+            Not right now 💛
+        </button>
+
+        <div id="message"></div>
+    </section>
+
+    <div class="footer">
+        Made with love and a little courage ❤️
+    </div>
+
+</div>
+
+<script>
+function nextPage(pageNumber) {
+    document.querySelectorAll("section").forEach(section => {
+        section.classList.add("hidden");
+    });
+
+    document.getElementById("page" + pageNumber)
+        .classList.remove("hidden");
+}
+
+function sayYes() {
+    document.getElementById("message").innerHTML =
+        "Yay! 💖 Let's make a beautiful memory together! 🌷";
+
+    for (let i = 0; i < 35; i++) {
+        setTimeout(createHeart, i * 100);
+    }
+}
+
+function sayNo() {
+    document.getElementById("message").innerHTML =
+        "That's okay 💛 Thank you for being honest. I respect your answer.";
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    const symbols = ["❤️", "💖", "💕", "💗", "🌸"];
+
+    heart.className = "heart";
+    heart.innerHTML = symbols[
+        Math.floor(Math.random() * symbols.length)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+    heart.style.fontSize = (18 + Math.random() * 25) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+// Continuously floating hearts
+setInterval(createHeart, 600);
+</script>
+
+</body>
+</html>
